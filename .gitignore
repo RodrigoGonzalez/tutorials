@@ -102,3 +102,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+*.zip
+*.tar
+./4000_checkpoint.tar
+./beginner_source/4000_checkpoint.tar
