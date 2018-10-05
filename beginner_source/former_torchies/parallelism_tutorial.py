@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Multi-GPU examples
+Multi-GPU Examples
 ==================
 
 Data Parallelism is when we split the mini-batch of samples into
@@ -14,6 +14,7 @@ over multiple GPUs in the batch dimension.
 DataParallel
 -------------
 """
+import torch
 import torch.nn as nn
 
 
@@ -38,8 +39,8 @@ class DataParallelModel(nn.Module):
 ########################################################################
 # The code does not need to be changed in CPU-mode.
 #
-# The documentation for DataParallel is
-# `here <http://pytorch.org/docs/nn.html#torch.nn.DataParallel>`_.
+# The documentation for DataParallel can be found
+# `here <http://pytorch.org/docs/nn.html#dataparallel>`_.
 #
 # **Primitives on which DataParallel is implemented upon:**
 #
@@ -77,13 +78,14 @@ def data_parallel(module, input, device_ids, output_device=None):
 # Let’s look at a small example of implementing a network where part of it
 # is on the CPU and part on the GPU
 
+device = torch.device("cuda:0")
 
 class DistributedModel(nn.Module):
 
     def __init__(self):
         super().__init__(
             embedding=nn.Embedding(1000, 10),
-            rnn=nn.Linear(10, 10).cuda(0),
+            rnn=nn.Linear(10, 10).to(device),
         )
 
     def forward(self, x):
@@ -91,7 +93,7 @@ class DistributedModel(nn.Module):
         x = self.embedding(x)
 
         # Transfer to GPU
-        x = x.cuda(0)
+        x = x.to(device)
 
         # Compute RNN on GPU
         x = self.rnn(x)
@@ -107,7 +109,7 @@ class DistributedModel(nn.Module):
 #
 # Also look at
 #
-# -  `Train neural nets to play video games`_
+# -  :doc:`Train neural nets to play video games </intermediate/reinforcement_q_learning>`
 # -  `Train a state-of-the-art ResNet network on imagenet`_
 # -  `Train an face generator using Generative Adversarial Networks`_
 # -  `Train a word-level language model using Recurrent LSTM networks`_
@@ -117,11 +119,10 @@ class DistributedModel(nn.Module):
 # -  `Chat with other users on Slack`_
 #
 # .. _`Deep Learning with PyTorch: a 60-minute blitz`: https://github.com/pytorch/tutorials/blob/master/Deep%20Learning%20with%20PyTorch.ipynb
-# .. _Train neural nets to play video games: https://goo.gl/uGOksc
 # .. _Train a state-of-the-art ResNet network on imagenet: https://github.com/pytorch/examples/tree/master/imagenet
 # .. _Train an face generator using Generative Adversarial Networks: https://github.com/pytorch/examples/tree/master/dcgan
 # .. _Train a word-level language model using Recurrent LSTM networks: https://github.com/pytorch/examples/tree/master/word_language_model
 # .. _More examples: https://github.com/pytorch/examples
 # .. _More tutorials: https://github.com/pytorch/tutorials
 # .. _Discuss PyTorch on the Forums: https://discuss.pytorch.org/
-# .. _Chat with other users on Slack: pytorch.slack.com/messages/beginner/
+# .. _Chat with other users on Slack: http://pytorch.slack.com/messages/beginner/

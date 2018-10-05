@@ -14,5 +14,13 @@ Intermediate tutorials
 	http://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html
 
 4. reinforcement_q_learning.py
-	Reinforcement Learning (DQN) tutorial
+	Reinforcement Learning (DQN) Tutorial
 	http://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html
+
+5. dist_tuto.rst
+	Writing Distributed Applications with PyTorch
+	http://pytorch.org/tutorials/intermediate/dist_tuto.html
+
+6. spatial_transformer_tutorial
+	Spatial Transformer Networks Tutorial
+	http://pytorch.org/tutorials/intermediate/spatial_transformer_tutorial.html
